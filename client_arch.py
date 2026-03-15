@@ -1,8 +1,8 @@
 # client.py
 import socket
-import json
 
-HOST = "10.20.200.174"
+
+HOST = "192.168.1.180"
 PORT = 65101
 
 """request = {
@@ -10,16 +10,27 @@ PORT = 65101
     "args": ["Arch Linux"]
 }"""
 
-request = {
+"""request = {
 	"function":"test1",
 	"args": []
-}
+}"""
 
+song ="Another Brick in the Wall, Pt. 1 - Pink Floyd.flac"
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect((HOST, PORT))
-    s.sendall(json.dumps(request).encode())
+	s.connect((HOST, PORT))
+	s.sendall((song+"\n").encode())
+	response = s.recv(4096).decode().strip()
+	
+	if response == "Error": 
+		print("Song not found")
+	else:
+		with open("recieved_song.flac","wb") as f: 
+			while True: 
+				data = s.recv(4096)
 
-    data = s.recv(4096)
+				if not data: 
+					break
+				f.write(data)
 
-print("Response:", json.loads(data.decode()))
+print("Ended")
 
