@@ -1,10 +1,11 @@
 # client.py
 import socket
+import subprocess 
 
-
-HOST = "192.168.1.180"
+HOST = "192.168.139.14"
 PORT = 65101
 
+player = subprocess.Popen(["ffplay","-nodisp", "-autoexit", "-"], stdin=subprocess.PIPE)
 """request = {
     "function": "greet",
     "args": ["Arch Linux"]
@@ -30,7 +31,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
 				if not data: 
 					break
-				f.write(data)
+				player.stdin.write(data)
+
+player.stdin.close()
+player.wait()
 
 print("Ended")
 
