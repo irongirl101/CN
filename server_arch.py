@@ -20,29 +20,29 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen()
     print("Server listening...")
+    while True:
+        conn, addr = s.accept()
+        with conn:
+            print("Connected by", addr)
 
-    conn, addr = s.accept()
-    with conn:
-        print("Connected by", addr)
+            data = conn.recv(4096)
+            request = data.decode().strip()
 
-        data = conn.recv(4096)
-        request = data.decode().strip()
+            if not os.path.exists(request):
+                conn.sendall("Error\n")
+            else:
+                conn.sendall("OK\n".encode())
+                with open(request,"rb") as f: 
+                    while True: 
+                        chunk = f.read(CHUNK)
+                        if not chunk: 
+                            break
+                        conn.sendall(chunk)
+                print("Song ended. Request if needed.")
 
-        if not os.path.exists(request):
-            conn.sendall("Error\n")
-        else:
-            conn.sendall("OK\n".encode())
-            with open(request,"rb") as f: 
-                while True: 
-                    chunk = f.read(CHUNK)
-                    if not chunk: 
-                        break
-                    conn.sendall(chunk)
-            print("Song ended. Request if needed.")
-
-        """func = FUNCTIONS[request["function"]]
-       	args = request.get("args", [])
-        result = func(*args)"""
+            """func = FUNCTIONS[request["function"]]
+            args = request.get("args", [])
+            result = func(*args)"""
 
        
 
