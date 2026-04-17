@@ -40,6 +40,31 @@ The client sends a request to the server to play music from various categories. 
   pip install ffmpeg-python
   ```
 
+## Setup 
+- Use main_client.py and main_server.py 
+- Get ip of server using and add it to client.py
+  ```
+  #Windows
+  ipconfig 
+  ```
+  ```
+  # MacOS
+  ipconfig getifaddr en0
+  ```
+  ```
+  #Linux
+  ip addr
+  ```
+- Run on server machine
+  ```
+  python server.py
+  ```
+- Run on client machine
+  ```
+  python client.py
+  ```
+- Client uses interface to play songs. 
+
 ## Project handeled by 
 ### Aditi Vignesh - PES1UG24CS023
 ### Piya Banerjee - PES1UG25CS830
