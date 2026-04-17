@@ -55,13 +55,13 @@ The client sends a request to the server to play music from various categories. 
   #Linux
   ip addr
   ```
-- Run on server machine
+- Run on server machine first 
   ```
-  python server.py
+  python main_server.py
   ```
 - Run on client machine
   ```
-  python client.py
+  python main_client.py
   ```
 - Client uses interface to play songs. 
 
