@@ -40,3 +40,7 @@ The client sends a request to the server to play music from various categories. 
   pip install ffmpeg-python
   ```
 
+## Project handeled by 
+### Aditi Vignesh - PES1UG24CS023
+### Piya Banerjee - PES1UG25CS830
+
